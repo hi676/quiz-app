@@ -13,16 +13,16 @@ import java.util.ArrayList;
 public class QuizQuestionActivity extends AppCompatActivity {
 
     // UI components here
+    private TextView tvQuestion, tv_progress;
+    private RadioButton o1, o2, o3, o4;
+    private RadioGroup options;
+    private ProgressBar progress;
 
     // other variables here
-    private String name = "";
     private ArrayList<QuestionModel> list;
-    private int total = 0;
-    private int correct = 0;
-    private RadioGroup group;
-    private Button next;
-    private int index = 0;
-    private String answer;
+    private QuestionModel currentQuestion;
+    String name;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,7 +34,7 @@ public class QuizQuestionActivity extends AppCompatActivity {
         Intent intent = new Intent(this, MainActivity.class);
         intent.putExtra("enterName", name);
         // initialize views using findViewByID
-        views = findViewById(R.id.linearLayout);
+
         // use helper method to add question content to arraylist
         addQuestions();
         // get total number of questions
