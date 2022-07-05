@@ -3,6 +3,7 @@ package com.example.quiz_app;
 import android.content.Intent;
 import android.view.View;
 import android.webkit.WebView;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,7 +15,7 @@ public class MainActivity extends AppCompatActivity {
 
     // Put class variables up here
     private Bundle bundle;
-    private AppCompatEditText nameInput;
+    private EditText nameInput;
     // Best practice is to make them private (can only be accessed within the class, or using getters/setters)
     // Each UI component that you want to reference needs a variable
 
