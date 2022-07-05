@@ -2,6 +2,7 @@ package com.example.quiz_app;
 
 import android.content.Intent;
 import android.view.View;
+import android.webkit.WebView;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,7 +14,7 @@ public class MainActivity extends AppCompatActivity {
 
     // Put class variables up here
     private Bundle bundle;
-    private TextView name;
+    private AppCompatEditText nameInput;
     // Best practice is to make them private (can only be accessed within the class, or using getters/setters)
     // Each UI component that you want to reference needs a variable
 
@@ -28,8 +29,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         // obtain user's name using findViewById
-        name = findViewById(R.id.enterName);
-        startQuiz(name);
+        nameInput = findViewById(R.id.enterName);
+        startQuiz(nameInput);
     }
 
     /**
@@ -38,21 +39,20 @@ public class MainActivity extends AppCompatActivity {
      */
     public void startQuiz(View view){
         // set name variable every time user clicks "start"
-        if(name.callOnClick()) {
-            name.setText("");
-            name = findViewById(R.id.enterName);
-        }
+        String name = "";
         // If the name field is empty, prompt user to enter name
-        while(name.getText().toString().equals("")){
-            TextView change = findViewById(R.id.Name);
-            change.setText("Do not leave this field blank");
-            name = findViewById(R.id.enterName);
+        if(name.equals("")){
+            Toast.makeText(getBaseContext(), "Please enter your name", Toast.LENGTH_SHORT).show();
+            startQuiz(nameInput);
         }
-        name = findViewById(R.id.enterName);
-        // If user has entered name, begin quiz
-        Intent intent = new Intent(this, QuizQuestionActivity.class);
-        startActivity(intent);
-        finish(); // close current activity
+        else {
+            // If user has entered name, begin quiz
+            Intent intent = new Intent(this, QuizQuestionActivity.class);
+            intent.putExtra("namePrompt", name);
+            startActivity(intent);
+            // close current activity
+            finish();
+        }
     }
 
 }

@@ -44,7 +44,7 @@
         <EditText
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:inputType="textPersonName"
+                android:inputType="textLongMessage|textPersonName"
                 android:text="Enter Your Name Here"
                 android:ems="10"
                 android:id="@+id/enterName" android:textAlignment="center" android:textSize="18sp"
@@ -53,7 +53,8 @@
                 android:shadowColor="#633838" app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintHorizontal_bias="0.5" app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" android:layout_marginTop="348dp"
-                app:layout_constraintBottom_toBottomOf="parent" android:layout_marginBottom="109dp"/>
+                app:layout_constraintBottom_toBottomOf="parent" android:layout_marginBottom="109dp"
+        />
         <Button
                 android:text="Click To Start!"
                 android:layout_width="wrap_content"
