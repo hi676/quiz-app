@@ -3,6 +3,7 @@ package com.example.quiz_app;
 import android.content.Intent;
 import android.view.View;
 import android.webkit.WebView;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -39,21 +40,23 @@ public class MainActivity extends AppCompatActivity {
      * @param view
      */
     public void startQuiz(View view){
-        // set name variable every time user clicks "start"
+        Button start = findViewById(R.id.Start);
         String name = "";
-        // If the name field is empty, prompt user to enter name
-        if(name.equals("")){
-            Toast.makeText(getBaseContext(), "Please enter your name", Toast.LENGTH_SHORT).show();
-            startQuiz(nameInput);
-        }
-        else {
-            // If user has entered name, begin quiz
-            Intent intent = new Intent(this, QuizQuestionActivity.class);
-            intent.putExtra("namePrompt", name);
-            startActivity(intent);
-            // close current activity
-            finish();
+        // set name variable every time user clicks "start"
+        if(start.isPressed()) {
+            name = nameInput.getText().toString();
+            // If the name field is empty, prompt user to enter name
+            if(name.equals("")){
+                name = nameInput.getText().toString();
+                Toast.makeText(getBaseContext(), "Please enter your name", Toast.LENGTH_SHORT).show();
+                startQuiz(nameInput);
+            }
+            else {
+                Intent intent = new Intent(this, QuizQuestionActivity.class);
+                intent.putExtra("namePrompt", name);
+                startActivity(intent);
+                finish(); // close current activity
+            }
         }
     }
-
 }
