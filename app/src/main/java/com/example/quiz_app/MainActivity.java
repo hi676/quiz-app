@@ -1,6 +1,7 @@
 package com.example.quiz_app;
 
 import android.content.Intent;
+import android.view.Gravity;
 import android.view.View;
 import android.webkit.WebView;
 import android.widget.Button;
@@ -17,6 +18,8 @@ public class MainActivity extends AppCompatActivity {
     // Put class variables up here
     private Bundle bundle;
     private EditText nameInput;
+    private String name = "";
+    private boolean bool;
     // Best practice is to make them private (can only be accessed within the class, or using getters/setters)
     // Each UI component that you want to reference needs a variable
 
@@ -40,23 +43,27 @@ public class MainActivity extends AppCompatActivity {
      * @param view
      */
     public void startQuiz(View view){
-        Button start = findViewById(R.id.Start);
-        String name = "";
-        // set name variable every time user clicks "start"
-        if(start.isPressed()) {
-            name = nameInput.getText().toString();
-            // If the name field is empty, prompt user to enter name
-            if(name.equals("")){
-                name = nameInput.getText().toString();
-                Toast.makeText(getBaseContext(), "Please enter your name", Toast.LENGTH_SHORT).show();
-                startQuiz(nameInput);
+        Button start = (Button)findViewById(R.id.Start);
+        start.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                // set name variable every time user clicks "start"
+                if (start.isPressed()) {
+                    bool = true;
+                    name = nameInput.getText().toString();
+                }
+                if(bool == true) {
+                    if (name.equals("")) {
+                        name = nameInput.getText().toString();
+                        Toast.makeText(getBaseContext(), "Please enter your name", Toast.LENGTH_SHORT).show();
+                        startQuiz(nameInput);
+                    } else {
+                        Intent intent = new Intent(MainActivity.this, QuizQuestionActivity.class);
+                        intent.putExtra("name", name);
+                        startActivity(intent);
+                        finish(); // close current activity
+                    }
+                }
             }
-            else {
-                Intent intent = new Intent(this, QuizQuestionActivity.class);
-                intent.putExtra("namePrompt", name);
-                startActivity(intent);
-                finish(); // close current activity
-            }
-        }
+        });
     }
 }

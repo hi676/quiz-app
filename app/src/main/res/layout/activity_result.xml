@@ -5,6 +5,44 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ResultActivity">
-
+        tools:context=".ResultActivity"
+        android:background="@drawable/gradient">
+    <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        <TextView
+                android:text="Results"
+                android:layout_width="match_parent"
+                android:layout_height="75dp" android:id="@+id/Results" android:textAlignment="center"
+                android:gravity="center" android:textSize="34sp" android:textColor="#1B4998"/>
+        <View
+                android:id="@+id/divider6"
+                android:layout_width="match_parent"
+                android:layout_height="163dp"
+                android:background="?android:attr/listDivider"
+                android:backgroundTint="#00FFFFFF"/>
+        <TextView
+                android:text="You scored 66%"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:id="@+id/Percentage" android:textAlignment="center"
+                android:textSize="24sp" android:textColor="#1B4998"/>
+        <TextView
+                android:text="You scored 66%"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:id="@+id/Fraction" android:textAlignment="center"
+                android:textSize="24sp" android:textColor="#1B4998"/>
+        <View
+                android:id="@+id/divider7"
+                android:layout_width="match_parent"
+                android:layout_height="189dp"
+                android:background="?android:attr/listDivider"
+                android:backgroundTint="#00FFFFFF"/>
+        <Button
+                android:text="Play Again?"
+                android:layout_width="275dp"
+                android:layout_height="wrap_content" android:id="@+id/PlayAgain" android:gravity="center"
+                android:layout_gravity="center" android:foregroundGravity="center_vertical"
+                android:background="#1B4998"/>
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -13,18 +13,19 @@ import java.util.ArrayList;
 public class QuizQuestionActivity extends AppCompatActivity {
 
     // UI components here
-    private TextView tvQuestion, tv_progress;
     private RadioButton o1, o2, o3, o4;
+    private Button next;
+    private TextView tvQuestion, progressText;
     private RadioGroup options;
     private ProgressBar progress;
 
     // other variables here
     private ArrayList<QuestionModel> list;
     private QuestionModel currentQuestion;
-    String name;
-    int total;
-    int score = 0;
-    int index = 0;
+    private String name;
+    private int total;
+    private int score = 0;
+    private int index = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,28 +34,40 @@ public class QuizQuestionActivity extends AppCompatActivity {
         // create arraylist of questions
         list = new ArrayList<>();
         // get username intent from main activity screen
-        Intent intent = new Intent(this, MainActivity.class);
-        intent.putExtra("enterName", name);
+        Intent intent = getIntent();
+        String name = intent.getStringExtra("name");
         // initialize views using findViewByID
-
+        tvQuestion = (TextView)findViewById(R.id.Question);
+        tvQuestion.setText("When was the first Jeopardy game?");
+        options = (RadioGroup)findViewById(R.id.Options);
+        o1 = (RadioButton)findViewById(R.id.o1);
+        o1.setText("1964");
+        o2 = (RadioButton)findViewById(R.id.o2);
+        o2.setText("1998");
+        o3 = (RadioButton)findViewById(R.id.o3);
+        o3.setText("1984");
+        o4 = (RadioButton)findViewById(R.id.o4);
+        o4.setText("2000");
+        next = (Button)findViewById(R.id.Next);
         // use helper method to add question content to arraylist
+        list.add(new QuestionModel("When was the first Jeopardy game?", "1964", "1998", "1984", "2000", 1));
         addQuestions();
         // get total number of questions
         total = list.size();
         // set progress bar
-        ProgressBar progress = findViewById(R.id.progressBar);
+        progressText = findViewById(R.id.Progress_Bar);
+        progressText.setText("Question 1");
+        progress = findViewById(R.id.progressBar);
         progress.setProgress(0);
+        progress.setMax(100);
         // use helper method to proceed to next question
         submitQuestion(list.get(index));
-        showNextQuestion();
     }
 
     /**
      * Method that adds questions to our questions arraylist, using the Question Model constructor
      */
     private void addQuestions(){
-        // question 1
-        list.add(new QuestionModel("When was the first Jeopardy game?", "1964", "1998", "1984", "2000", 1));
         // question 2
         list.add(new QuestionModel("Who was the first host of Wheel of Fortune?", "Pat Sajak", "Chuck Woolery", "Vanna White", "Howie Mandel", 2));
         // question 3
@@ -70,12 +83,17 @@ public class QuizQuestionActivity extends AppCompatActivity {
      */
     public void submitQuestion(QuestionModel question){
         // if no options have been selected, prompt user to select an answer
-
-
-        // obtain user's name using findViewById
-
-        // use helper methods to check the answer and show the next question
-        checkAnswer();
+        next.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                if (next.isPressed() && options.getCheckedRadioButtonId()==-1) {
+                    Toast.makeText(getBaseContext(), "Please select an answer", Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    checkAnswer();
+                    showNextQuestion();
+                }
+            }
+        });
     }
 
     /**
@@ -84,15 +102,28 @@ public class QuizQuestionActivity extends AppCompatActivity {
     private void showNextQuestion(){
 
         // clear previous button selections
-
+        options.clearCheck();
         // if you haven't gone through all the questions yet
         // set the question & text to the next question
-        // increase question number
-        // set progress bar
-
-
+        index += 1;
+        if(index != list.size()){
+            tvQuestion.setText(list.get(index).getQuestion());
+            o1.setText(list.get(index).getOpt1());
+            o2.setText(list.get(index).getOpt2());
+            o3.setText(list.get(index).getOpt3());
+            o4.setText(list.get(index).getOpt4());
+            progress.setProgress(index*100/list.size());
+            progressText.setText("Question " + (index+1));
+        }
         // if finished with quiz, start Results activity
-
+        if(index == list.size()) {
+            Intent intent = new Intent(QuizQuestionActivity.this, ResultActivity.class);
+            intent.putExtra("name", name);
+            intent.putExtra("totalQuestions", String.valueOf(list.size()));
+            intent.putExtra("score", String.valueOf(score));
+            startActivity(intent);
+            finish();
+        }
     }
 
     /**
@@ -100,40 +131,28 @@ public class QuizQuestionActivity extends AppCompatActivity {
      */
     private void checkAnswer(){
         // see which answer they picked
-        RadioButton option1 = findViewById(R.id.o1);
-        RadioButton option2 = findViewById(R.id.o2);
-        RadioButton option3 = findViewById(R.id.o3);
-        RadioButton option4 = findViewById(R.id.o4);
         int option = -1;
-        if(option1.isChecked())
+        if(o1.isChecked())
+        {
+            option = 0;
+        }
+        else if(o2.isChecked())
         {
             option = 1;
         }
-        else if(option2.isChecked())
+        else if(o3.isChecked())
         {
             option = 2;
         }
-        else if(option3.isChecked())
+        else if(o4.isChecked())
         {
             option = 3;
         }
-        else if(option4.isChecked())
-        {
-            option = 4;
-        }
-
+//        String str = String.valueOf(option) + " " + String.valueOf(list.get(index).getCorrectAnsNum());
+//        Toast.makeText(getBaseContext(), str,Toast.LENGTH_SHORT).show();
         // increase score if correct
         if(option == list.get(index).getCorrectAnsNum()) {
-                total++;
-        }
-        if(option == list.get(index).getCorrectAnsNum()) {
-                total++;
-        }
-        if(option == list.get(index).getCorrectAnsNum()) {
-                total++;
-        }
-        if(option == list.get(index).getCorrectAnsNum()) {
-            total++;
+            score++;
         }
     }
 }

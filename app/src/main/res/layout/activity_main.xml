@@ -6,18 +6,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".MainActivity"
-        android:id="@+id/linearLayout">
-    <ImageView
-            android:layout_height="0dp" app:srcCompat="@drawable/welcome" android:id="@+id/Wallpaper"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintHorizontal_bias="0" app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintVertical_bias="1.0" android:layout_width="409dp" android:scaleType="fitXY"/>
+        android:id="@+id/ConstraintLayout"
+        android:background="@drawable/gradient">
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="2.25in"
             android:layout_height="532dp" android:id="@+id/Card" app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:visibility="visible" tools:visibility="visible" android:background="#673AB7"
+            android:visibility="visible" tools:visibility="visible" android:background="#00000000"
             app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintHorizontal_bias="0.5" app:circularflow_defaultRadius="5in">
         <TextView
@@ -25,7 +20,7 @@
                 android:layout_width="408dp"
                 android:layout_height="wrap_content" android:id="@+id/Title"
                 android:textAlignment="center" android:textSize="34sp"
-                android:textColor="#FFFFFF" android:fontFamily="@font/bowlby_one_sc"
+                android:textColor="#FF1B4998" android:fontFamily="@font/bowlby_one_sc"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 app:layout_constraintStart_toStartOf="parent" app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toTopOf="parent"
@@ -36,7 +31,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" android:id="@+id/Name" android:textAlignment="center"
                 android:textSize="24sp" android:background="#00FFFFFF"
-                android:fontFamily="@font/bowlby_one_sc" android:textColor="#FFFFFF"
+                android:fontFamily="@font/bowlby_one_sc" android:textColor="#FF1B4998"
                 app:layout_constraintStart_toStartOf="parent" app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toTopOf="parent"
                 android:layout_marginTop="249dp" app:layout_constraintBottom_toBottomOf="parent"
@@ -52,12 +47,13 @@
                 app:layout_constraintBottom_toTopOf="@+id/Start" app:layout_constraintStart_toStartOf="parent"
                 android:layout_marginStart="84dp" android:layout_marginEnd="84dp"
                 app:layout_constraintEnd_toEndOf="parent" tools:visibility="visible" android:visibility="visible"
-                android:backgroundTint="#FFFFFF" android:foregroundTint="#FFFFFF"/>
+                android:backgroundTint="#FFFFFF" android:foregroundTint="#FFFFFF" android:textAlignment="center"/>
         <Button
+                android:id="@+id/Start"
                 android:text="Click To Start!"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" android:id="@+id/Start"
-                android:backgroundTint="#10DCBD" android:textColor="#FFFFFF"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#FF1B4998" android:textColor="#FFFFFF"
                 android:fontFamily="@font/bowlby_one_sc" android:textAlignment="center"
                 app:cornerRadius="5in"
                 app:layout_constraintStart_toStartOf="parent" app:layout_constraintHorizontal_bias="0.5"
